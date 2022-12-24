@@ -24,6 +24,12 @@ namespace LineBotMessage.Controllers
             return Ok();
         }
 
+        [HttpGet("")]
+        public int Test()
+        {
+            return 1;
+        }
+
         //[HttpPost("SendMessage/Broadcast")]
         //public IActionResult Broadcast([Required] string messageType, object body)
         //{

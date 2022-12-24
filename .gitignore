@@ -11,3 +11,7 @@
 /LineBot/obj
 /LineBot/UploadFiles
 
+/LineBot/bin/Debug/net6.0
+/LineBot/bin/Release/net6.0
+/LineBot/Properties/PublishProfiles
+/ngrok.txt
