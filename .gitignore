@@ -3,3 +3,7 @@
 ################################################################################
 
 /.vs/ProjectSettings.json
+/.vs/nanaLineBot/v17/.suo
+/.vs/nanaLineBot/project-colors.json
+/.vs/slnx.sqlite
+/LineBot/obj/Release/net6.0
