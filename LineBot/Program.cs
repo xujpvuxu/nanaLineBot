@@ -1,3 +1,4 @@
+using LineBot;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,8 +21,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new PhysicalFileProvider(Path.Combine(builder.Environment.ContentRootPath, "UploadFiles")),
-    RequestPath = "/UploadFiles",
+    FileProvider = new PhysicalFileProvider(Path.Combine(builder.Environment.ContentRootPath, Const.UploadFiles)),
+    RequestPath = $@"/{ Const.UploadFiles}",
 });
 app.UseHttpsRedirection();
 

@@ -14,6 +14,7 @@ namespace LineBot.Domain
         private readonly string replyMessageUri = "https://api.line.me/v2/bot/message/reply";
 
         private readonly JsonProvider _jsonProvider = new JsonProvider();
+
         /// <summary>
         /// 接收到回覆請求時，在將請求傳至 Line 前多一層處理(目前為預留)
         /// </summary>
@@ -31,8 +32,8 @@ namespace LineBot.Domain
         /// <param name="request"></param>
         public async void ReplyMessage<T>(ReplyMessageRequestDto<T> request)
         {
-              HttpClient client = new HttpClient(); // 負責處理HttpRequest
-        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpClient client = new HttpClient(); // 負責處理HttpRequest
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", channelAccessToken); //帶入 channel access token
             string json = _jsonProvider.Serialize(request);
             HttpRequestMessage requestMessage = new HttpRequestMessage

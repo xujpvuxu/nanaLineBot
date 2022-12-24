@@ -2,26 +2,18 @@
 using LineBot.DTO.Messages.Request;
 using LineBot.DTO.Webhook;
 using LineBot.Interfaces;
+using System.Text.RegularExpressions;
 
 namespace LineBot.Domain.TextEvent
 {
-    public class TextMain : BaseResponse, IType
+    public class TextMain : IType
     {
         public void Result(WebhookEventDto eventObject, string hostUri)
         {
-            string messag = $@"{hostUri}/UploadFiles/LINE_ALBUM_2020-2022_221224.jpg";
-            var replyMessage = new ReplyMessageRequestDto<ImageMessageDto>(eventObject)
+            if (Regex.IsMatch(eventObject.Message.Text, @"抽.*?娜娜"))
             {
-                Messages = new List<ImageMessageDto>
-                            {
-                                new ImageMessageDto
-                                {
-                                    PreviewImageUrl = messag,
-                                    OriginalContentUrl=messag
-                                }
-                            }
-            };
-            ReplyMessageHandler("text", replyMessage);
+                new NanaResponsePicture().Result(eventObject, hostUri);
+            }
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace LineBot.DTO.Messages
 {
-    public class ImageMessageDto:BaseMessageDto
+    public class ImageMessageDto : BaseMessageDto
     {
         public ImageMessageDto()
         {

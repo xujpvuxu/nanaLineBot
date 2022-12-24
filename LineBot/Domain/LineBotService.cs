@@ -13,16 +13,7 @@ namespace LineBot.Domain
 {
     public class LineBotService //: ILineBotService
     {
-        // (將 LineBotController 裡宣告的 ChannelAccessToken & ChannelSecret 移到 LineBotService中)
-        // 貼上 messaging api channel 中的 accessToken & secret
-        //private readonly string channelAccessToken = @"U9c8zlj7hqd3YyukRsgHHjE6GI3hoRzrchGTgUnVpLzHYw7dnW/XeRamUzm5Xjfr2MiGssJRxrYweRtmvVS83kswfEMrHIKeOUbWwagAkgTpJibXdZtmy/V0S4S9qXgN6cXx3pcMLJGuN9gCXUs/0wdB04t89/1O/w1cDnyilFU=";
-
-        //private readonly string channelSecret = @"a61cfe69fd532111edfd30935277c8d6";
-
-        //private readonly string replyMessageUri = "https://api.line.me/v2/bot/message/reply";
-        private readonly string broadcastMessageUri = "https://api.line.me/v2/bot/message/broadcast";
-        //private static HttpClient client = new HttpClient(); // 負責處理HttpRequest
-        //private readonly JsonProvider _jsonProvider = new JsonProvider();
+        // private readonly string broadcastMessageUri = "https://api.line.me/v2/bot/message/broadcast";
 
         public void ReceiveWebhook(WebhookRequestBodyDto requestBody, string hostUri)
         {
@@ -31,7 +22,7 @@ namespace LineBot.Domain
                 if (TypeDictionary.TryGetValue(eventObject.Type, out IType type))
                 {
                     type.Result(eventObject, hostUri);
-                } 
+                }
                 //switch (eventObject.Type)
                 //{
                 //    case WebhookEventTypeEnum.Message:
@@ -157,11 +148,11 @@ namespace LineBot.Domain
         private Dictionary<string, IType> TypeDictionary = new Dictionary<string, IType>
         {
             { "message", new TextMain() },
-            { "unsend", new TextMain() },
-            { "follow", new TextMain() },
-            { "unfollow", new TextMain() },
-            { "join", new TextMain() },
-            { "leave", new TextMain() },
+            //{ "unsend", new TextMain() },
+            //{ "follow", new TextMain() },
+            //{ "unfollow", new TextMain() },
+            //{ "join", new TextMain() },
+            //{ "leave", new TextMain() },
         };
     }
 }
