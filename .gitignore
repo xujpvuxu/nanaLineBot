@@ -4,8 +4,9 @@
 
 /.vs/ProjectSettings.json
 /.vs/nanaLineBot/v17/.suo
+/.vs/nanaLineBot/v17
 /.vs/nanaLineBot/project-colors.json
 /.vs/slnx.sqlite
-/.vs
-/LineBot/obj/Release/net6.0
-/LineBot/obj/Debug/net6.0
+/nanaLineBot/LineBot/obj
+/LineBot/obj
+

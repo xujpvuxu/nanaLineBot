@@ -5,14 +5,13 @@ using LineBot.Interfaces;
 
 namespace LineBot.Domain.TextEvent
 {
-    public class TextMain :BaseResponse, IType
+    public class TextMain : BaseResponse, IType
     {
-        public void Result(WebhookEventDto eventObject , string hostUri)
+        public void Result(WebhookEventDto eventObject, string hostUri)
         {
             string messag = $@"{hostUri}/UploadFiles/LINE_ALBUM_2020-2022_221224.jpg";
-            var replyMessage = new ReplyMessageRequestDto<ImageMessageDto>()
+            var replyMessage = new ReplyMessageRequestDto<ImageMessageDto>(eventObject)
             {
-                ReplyToken = eventObject.ReplyToken,
                 Messages = new List<ImageMessageDto>
                             {
                                 new ImageMessageDto
