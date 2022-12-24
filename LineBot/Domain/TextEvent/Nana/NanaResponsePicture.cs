@@ -5,18 +5,16 @@ using LineBot.Interfaces;
 
 namespace LineBot.Domain.TextEvent
 {
-    public class NanaResponsePicture : BaseResponse, IType
+    public class NanaResponsePicture : BaseResponse
     {
-        public void Result(WebhookEventDto eventObject, string hostUri)
+        public void Result(WebhookEventDto eventObject, List<string> pictures, string hostUri)
         {
-            // 取出所有檔案名稱
-            string[] datas = Directory.GetFiles(Path.Combine(Environment.CurrentDirectory, Const.UploadFiles));
-
-            // 隨機取數字
-            int index = new Random().Next(datas.Length);
+            //// 隨機取數字
+            int index = new Random().Next(pictures.Count());
 
             // 取得隨機路徑
-            string picturePath = $@"{hostUri}/{Const.UploadFiles}/{Path.GetFileName(datas[index])}";
+            //string picturePath = $@"{hostUri}/{Const.UploadFiles}/{Path.GetFileName(datas[index])}";
+            string picturePath = pictures[index];
 
             var replyMessage = new ReplyMessageRequestDto<ImageMessageDto>(eventObject)
             {

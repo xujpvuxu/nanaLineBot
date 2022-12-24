@@ -10,9 +10,16 @@ namespace LineBot.Domain.TextEvent
     {
         public void Result(WebhookEventDto eventObject, string hostUri)
         {
-            if (Regex.IsMatch(eventObject.Message.Text, @"抽.*?娜娜"))
+            if (!string.IsNullOrEmpty(eventObject.Message.Text))
             {
-                new NanaResponsePicture().Result(eventObject, hostUri);
+                if (Regex.IsMatch(eventObject.Message.Text, @"抽.*?娜娜"))
+                {
+                    new NanaResponsePicture().Result(eventObject,Const.NanaPictures, hostUri);
+                }
+                else if (Regex.IsMatch(eventObject.Message.Text, @"抽.*?踏雪"))
+                {
+                    new NanaResponsePicture().Result(eventObject, Const.SnowPictures,hostUri);
+                }
             }
         }
     }

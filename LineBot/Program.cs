@@ -19,11 +19,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseStaticFiles(new StaticFileOptions
-{
-    FileProvider = new PhysicalFileProvider(Path.Combine(builder.Environment.ContentRootPath, Const.UploadFiles)),
-    RequestPath = $@"/{ Const.UploadFiles}",
-});
+//app.UseStaticFiles(new StaticFileOptions
+//{
+//    FileProvider = new PhysicalFileProvider(Path.Combine(builder.Environment.ContentRootPath, Const.UploadFiles)),
+//    RequestPath = $@"/{ Const.UploadFiles}",
+//});
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
