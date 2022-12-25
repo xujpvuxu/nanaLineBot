@@ -16,15 +16,15 @@ namespace LineBot.Domain.TextEvent
                 // 當前NameSpace
                 string currentNameSpace = MethodBase.GetCurrentMethod().DeclaringType.Namespace;
 
+                IEnumerable<ITextEvent> types = Assembly.GetExecutingAssembly().GetTypes()
+                                                        .Where(t => t.Namespace == currentNameSpace
+                                                                 && !t.IsNested
+                                                                 && t.IsClass
+                                                                 && !t.Name.EndsWith("Main"))
+                                                        .Select(data => Activator.CreateInstance(data, new object[] { eventObject }))
+                                                        .OfType<ITextEvent>();
                 // 選擇跟當前NameSpace相同的class後並執行
-                foreach (ITextEvent type in Assembly.GetExecutingAssembly().GetTypes()
-                                                    .Where(t => t.IsClass
-                                                             && t.Namespace == currentNameSpace
-                                                             && !t.IsNested
-                                                             && !t.Name.EndsWith("Main")
-                                                             )
-                                                    .Select(data => Activator.CreateInstance(data, new object[] { eventObject }))
-                                                    .OfType<ITextEvent>())
+                foreach (ITextEvent type in types)
                 {
                     if (Regex.IsMatch(eventObject.Message.Text, type.Pattern))
                     {

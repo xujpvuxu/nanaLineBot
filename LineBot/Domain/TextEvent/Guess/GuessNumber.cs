@@ -19,17 +19,9 @@ namespace LineBot.Domain.TextEvent
             {
                 string userNumber = EventObject.Message.Text;
                 string answer = GuessNumberSetting.Answer;
-                // 有相同的數字 = ? B
-                int b = answer.Select(data => data.ToString()).Intersect(userNumber.Select(data => data.ToString()).ToList()).Count();
+
                 // 位置相同 = ?A
-                int a = 0;
-                for (int i = 0; i < answer.Length; i++)
-                {
-                    if (userNumber[i] == answer[i])
-                    {
-                        a++;
-                    }
-                }
+                int a = answer.Where((data, i) => data == userNumber[i]).Count();
 
                 if (a == answer.Length)
                 {
@@ -39,6 +31,8 @@ namespace LineBot.Domain.TextEvent
                 }
                 else
                 {
+                    // 有相同的數字 = ? B
+                    int b = answer.Select(data => data.ToString()).Intersect(userNumber.Select(data => data.ToString()).ToList()).Count();
                     // B = B-A = 真正的B
                     ReplyText($@"{userNumber}　{a}A{b - a}B");
                 }
