@@ -2,6 +2,7 @@
 using LineBot.DTO.Messages.Request;
 using LineBot.DTO.Webhook;
 using LineBot.Interfaces;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace LineBot.Domain.TextEvent
@@ -12,13 +13,20 @@ namespace LineBot.Domain.TextEvent
         {
             if (!string.IsNullOrEmpty(eventObject.Message.Text))
             {
-                if (Regex.IsMatch(eventObject.Message.Text, @"抽.*?娜娜"))
+                // 當前NameSpace
+                string currentNameSpace = MethodBase.GetCurrentMethod().DeclaringType.Namespace;
+
+                // 選擇跟當前NameSpace相同的class後並執行
+                foreach (ITextEvent type in Assembly.GetExecutingAssembly().GetTypes()
+                                                    .Where(t => t.IsClass
+                                                             && t.Namespace == currentNameSpace)
+                                                    .Select(data => Activator.CreateInstance(data))
+                                                    .OfType<ITextEvent>())
                 {
-                    new NanaResponsePicture().Result(eventObject, NanaResponsePicture.NanaPictures);
-                }
-                else if (Regex.IsMatch(eventObject.Message.Text, @"抽.*?踏雪"))
-                {
-                    new NanaResponsePicture().Result(eventObject, NanaResponsePicture.SnowPictures);
+                    if (Regex.IsMatch(eventObject.Message.Text, type.Pattern))
+                    {
+                        type.Result(eventObject);
+                    }
                 }
             }
         }
