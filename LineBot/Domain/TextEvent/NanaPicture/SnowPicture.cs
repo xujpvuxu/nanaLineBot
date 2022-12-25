@@ -8,12 +8,14 @@ namespace LineBot.Domain.TextEvent
     public class SnowPicture : BaseResponse, ITextEvent
     {
         public string Pattern { get; set; } = "抽.*?踏雪";
-        public WebhookEventDto EventObject { get; set; }
 
-        public void Result(WebhookEventDto eventObject)
+        public SnowPicture(WebhookEventDto eventObject) : base(eventObject)
         {
-            new NanaPicture().ReplyPicture(eventObject, SnowPictures);
-            EventObject = eventObject;
+        }
+
+        public void Result()
+        {
+            new NanaPicture(EventObject).ReplyPicture(SnowPictures);
         }
 
         private static List<string> SnowPictures = new List<string>

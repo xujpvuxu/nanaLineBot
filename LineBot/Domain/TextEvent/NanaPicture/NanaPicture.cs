@@ -8,15 +8,17 @@ namespace LineBot.Domain.TextEvent
     public class NanaPicture : BaseResponse, ITextEvent
     {
         public string Pattern { get; set; } = "抽.*?娜娜";
-        public WebhookEventDto EventObject { get; set; }
 
-        public void Result(WebhookEventDto eventObject)
+        public NanaPicture(WebhookEventDto eventObject) : base(eventObject)
         {
-            ReplyPicture(eventObject, NanaPictures);
-            EventObject = eventObject;
         }
 
-        public void ReplyPicture(WebhookEventDto eventObject, List<string> pictures)
+        public void Result()
+        {
+            ReplyPicture(NanaPictures);
+        }
+
+        public void ReplyPicture(List<string> pictures)
         {
             //// 隨機取數字
             int index = new Random().Next(pictures.Count());
@@ -24,18 +26,7 @@ namespace LineBot.Domain.TextEvent
             // 取得隨機路徑
             string picturePath = pictures[index];
 
-            var replyMessage = new ReplyMessageRequestDto<ImageMessageDto>(eventObject)
-            {
-                Messages = new List<ImageMessageDto>
-                            {
-                                new ImageMessageDto
-                                {
-                                    PreviewImageUrl = picturePath,
-                                    OriginalContentUrl = picturePath
-                                }
-                            }
-            };
-            ReplyMessageHandler("text", replyMessage);
+            ReplyImage(picturePath);
         }
 
         private static List<string> NanaPictures = new List<string>

@@ -8,11 +8,13 @@ namespace LineBot.Domain.TextEvent
     public class FinalTitle : BaseResponse, ITextEvent
     {
         public string Pattern { get; set; } = "^終極密碼$";
-        public WebhookEventDto EventObject { get; set; }
 
-        public void Result(WebhookEventDto eventObject)
+        public FinalTitle(WebhookEventDto eventObject) : base(eventObject)
         {
-            EventObject = eventObject;
+        }
+
+        public void Result()
+        {
             if (FinalSetting.IsPlay)
             {
                 // 出題
@@ -38,17 +40,7 @@ namespace LineBot.Domain.TextEvent
             FinalSetting.MinNumber = 0;
             FinalSetting.MaxNumber = number;
 
-            var replyMessage = new ReplyMessageRequestDto<TextMessageDto>(EventObject)
-            {
-                Messages = new List<TextMessageDto>
-                            {
-                                new TextMessageDto
-                                {
-                                    Text = $@"終極密碼開始 0-{number}",
-                                }
-                            }
-            };
-            ReplyMessageHandler("text", replyMessage);
+            ReplyText($@"終極密碼開始 0-{number}");
         }
     }
 }

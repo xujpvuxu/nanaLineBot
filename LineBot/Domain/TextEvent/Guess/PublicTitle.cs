@@ -8,11 +8,13 @@ namespace LineBot.Domain.TextEvent
     public class PublicTitle : BaseResponse, ITextEvent
     {
         public string Pattern { get; set; } = "^猜數字$";
-        public WebhookEventDto EventObject { get; set; }
 
-        public void Result(WebhookEventDto eventObject)
+        public PublicTitle(WebhookEventDto eventObject) : base(eventObject)
         {
-            EventObject = eventObject;
+        }
+
+        public void Result()
+        {
             if (GuessNumberSetting.IsPlay)
             {
                 // 出題
@@ -43,17 +45,7 @@ namespace LineBot.Domain.TextEvent
             }
             GuessNumberSetting.Answer = string.Join(string.Empty, question.Take(4).Select(x => x.ToString()));
 
-            var replyMessage = new ReplyMessageRequestDto<TextMessageDto>(EventObject)
-            {
-                Messages = new List<TextMessageDto>
-                            {
-                                new TextMessageDto
-                                {
-                                    Text = "請猜數字 0000-9999",
-                                }
-                            }
-            };
-            ReplyMessageHandler("text", replyMessage);
+            ReplyText("請猜數字 0000-9999");
         }
     }
 }

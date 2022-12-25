@@ -6,8 +6,6 @@ namespace LineBot.Interfaces
     {
         string Pattern { get; set; }
 
-        WebhookEventDto EventObject { get; set; }
-
-        void Result(WebhookEventDto eventObject);
+        void Result();
     }
 }

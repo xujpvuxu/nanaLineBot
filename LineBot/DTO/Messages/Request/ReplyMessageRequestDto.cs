@@ -14,7 +14,7 @@ namespace LineBot.DTO.Messages.Request
         }
 
         public string ReplyToken { get; set; }
-        public List<T> Messages { get; set; }
+        public List<T> Messages { get; set; } = new List<T>();
         public bool? NotificationDisabled { get; set; }
     }
 }
