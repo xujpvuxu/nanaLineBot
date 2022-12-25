@@ -20,7 +20,7 @@ namespace LineBotMessage.Controllers
         [HttpPost("Webhook")]
         public IActionResult Webhook(WebhookRequestBodyDto body)
         {
-            LineBotService.ReceiveWebhook(body, GetHostUri());
+            LineBotService.ReceiveWebhook(body);
             return Ok();
         }
 
@@ -29,14 +29,5 @@ namespace LineBotMessage.Controllers
         {
             return 1;
         }
-
-        //[HttpPost("SendMessage/Broadcast")]
-        //public IActionResult Broadcast([Required] string messageType, object body)
-        //{
-        //    LineBotService.BroadcastMessageHandler(messageType, body);
-        //    return Ok();
-        //}
-
-        private string GetHostUri() => $@"{ControllerContext.HttpContext.Request.Scheme}://{ControllerContext.HttpContext.Request.Host.Value}";
     }
 }
