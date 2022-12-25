@@ -5,9 +5,10 @@ using LineBot.Interfaces;
 
 namespace LineBot.Domain.TextEvent
 {
-    public class GuessNumber : BaseResponse, ITextEvent
+    public class ExitGuessNumber : BaseResponse, ITextEvent
     {
         public string Pattern { get; set; } = @"^[\d]{4}$";
+
         public WebhookEventDto EventObject { get; set; }
 
         public void Result(WebhookEventDto eventObject)
