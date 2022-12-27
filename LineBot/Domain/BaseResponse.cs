@@ -9,13 +9,13 @@ namespace LineBot.Domain
 {
     public class BaseResponse
     {
-        private readonly static string ChannelAccessToken = @"U9c8zlj7hqd3YyukRsgHHjE6GI3hoRzrchGTgUnVpLzHYw7dnW/XeRamUzm5Xjfr2MiGssJRxrYweRtmvVS83kswfEMrHIKeOUbWwagAkgTpJibXdZtmy/V0S4S9qXgN6cXx3pcMLJGuN9gCXUs/0wdB04t89/1O/w1cDnyilFU=";
+        private static readonly string ChannelAccessToken = @"U9c8zlj7hqd3YyukRsgHHjE6GI3hoRzrchGTgUnVpLzHYw7dnW/XeRamUzm5Xjfr2MiGssJRxrYweRtmvVS83kswfEMrHIKeOUbWwagAkgTpJibXdZtmy/V0S4S9qXgN6cXx3pcMLJGuN9gCXUs/0wdB04t89/1O/w1cDnyilFU=";
 
-        private readonly static string ChannelSecret = @"a61cfe69fd532111edfd30935277c8d6";
-                        
-        private readonly static string ReplyMessageUri = "https://api.line.me/v2/bot/message/reply";
+        private static readonly string ChannelSecret = @"a61cfe69fd532111edfd30935277c8d6";
 
-        private readonly static JsonProvider JsonProvider = new JsonProvider();
+        private static readonly string ReplyMessageUri = "https://api.line.me/v2/bot/message/reply";
+
+        private static readonly JsonProvider JsonProvider = new JsonProvider();
         public WebhookEventDto EventObject { get; set; }
 
         public void ReplyText(string text) => ReplyText(new List<string> { text });

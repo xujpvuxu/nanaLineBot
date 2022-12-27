@@ -9,29 +9,43 @@ namespace LineBot.Domain.TextEvent
 {
     public class TextMain : IType
     {
+        private static List<(string pattern, Type type)> Patterns = null;
+
         public void Result(WebhookEventDto eventObject)
         {
             if (!string.IsNullOrEmpty(eventObject.Message.Text))
             {
-                // 當前NameSpace
-                string currentNameSpace = MethodBase.GetCurrentMethod().DeclaringType.Namespace;
-
-                IEnumerable<ITextEvent> types = Assembly.GetExecutingAssembly().GetTypes()
-                                                        .Where(t => t.Namespace == currentNameSpace
-                                                                 && !t.IsNested
-                                                                 && t.IsClass
-                                                                 && !t.Name.EndsWith("Main"))
-                                                        .Select(data => Activator.CreateInstance(data, new object[] { eventObject }))
-                                                        .OfType<ITextEvent>();
-                // 選擇跟當前NameSpace相同的class後並執行
-                foreach (ITextEvent type in types)
+                if (Patterns == null)
                 {
-                    if (Regex.IsMatch(eventObject.Message.Text, type.Pattern))
-                    {
-                        type.Result();
-                    }
+                    GetPatterns(eventObject);
                 }
+
+                // 選擇跟當前NameSpace相同的class後並執行
+                Patterns.AsParallel().ForAll(p =>
+                {
+                    if (Regex.IsMatch(eventObject.Message.Text, p.pattern))
+                    {
+                        ((ITextEvent)Activator.CreateInstance(p.type, new object[] { eventObject })).Result();
+                    }
+                });
             }
+        }
+
+        private void GetPatterns(WebhookEventDto eventObject)
+        {
+            // 當前NameSpace
+            string currentNameSpace = MethodBase.GetCurrentMethod().DeclaringType.Namespace;
+
+            Patterns = Assembly.GetExecutingAssembly()
+                                   .GetTypes()
+                                   .Where(t => t.Namespace == currentNameSpace
+                                            && !t.IsNested
+                                            && t.IsClass
+                                            && !t.Name.EndsWith("Main"))
+                                   .Select(type => (
+                                           ((ITextEvent)Activator.CreateInstance(type, new object[] { eventObject })).Pattern,
+                                           type))
+                                   .ToList();
         }
     }
 }
