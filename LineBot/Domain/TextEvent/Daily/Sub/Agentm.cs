@@ -23,7 +23,7 @@ namespace LineBot.Domain.TextEvent.Daily.Sub
                    { new StringContent(perDailyLoging.Other3), "passwd" },
                 };
 
-                HttpResponseMessage response = client.PostAsync(perDailyLoging.Uri, sentMultiData).Result;
+                HttpResponseMessage response = client.PostAsync(Uri, sentMultiData).Result;
                 string _ = response.Content.ReadAsStringAsync().Result;
             }
         }

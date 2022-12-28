@@ -17,7 +17,7 @@ namespace LineBot.Domain.TextEvent.Daily.Sub
                 HttpClient client = new HttpClient(new HttpClientHandler() { UseCookies = false });
                 client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (iPhone; CPU iPhone OS 15_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148");
                 client.DefaultRequestHeaders.Add("Cookie", perDailyLogings.Cookie);
-                var response = client.GetAsync(perDailyLogings.Uri).Result;
+                var response = client.GetAsync(Uri).Result;
                 string content = response.Content.ReadAsStringAsync().Result;
             }
         }
