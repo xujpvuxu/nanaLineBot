@@ -9,26 +9,31 @@ namespace LineBot.Domain.TextEvent
     {
         public string Pattern { get; set; } = @"^[\d]{1,2}$";
 
+        public static bool Setting_IsPlay = false;
+        public static int Setting_MinNumber = 0;
+        public static int Setting_MaxNumber = 100;
+        public static int Setting_Answer = 100;
+
         public FinalNumber(WebhookEventDto eventObject) : base(eventObject)
         {
         }
 
         public void Result()
         {
-            if (FinalSetting.IsPlay)
+            if (Setting_IsPlay)
             {
                 int.TryParse(EventObject.Message.Text, out int userNumber);
 
-                int minNumber = FinalSetting.MinNumber;
-                int maxNumber = FinalSetting.MaxNumber;
-                int answerNumber = FinalSetting.Answer;
+                int minNumber = Setting_MinNumber;
+                int maxNumber = Setting_MaxNumber;
+                int answerNumber = Setting_Answer;
                 if (userNumber <= minNumber || userNumber >= maxNumber)
                 {
                     ReplyText($@"眼殘嗎！！！！  {minNumber}-{maxNumber}");
                 }
                 else if (userNumber == answerNumber)
                 {
-                    FinalSetting.IsPlay = false;
+                    Setting_IsPlay = false;
                     ReplyText($@"蹦！！炸死你！！ 答案{answerNumber}");
                 }
                 else
@@ -36,14 +41,14 @@ namespace LineBot.Domain.TextEvent
                     if (minNumber < userNumber && userNumber < answerNumber)
                     {
                         // 最小數字 及 答案之間
-                        FinalSetting.MinNumber = userNumber;
+                        Setting_MinNumber = userNumber;
                     }
                     else
                     {
                         // 答案 及 最大之間
-                        FinalSetting.MaxNumber = userNumber;
+                        Setting_MaxNumber = userNumber;
                     }
-                    ReplyText($@"{FinalSetting.MinNumber}-{FinalSetting.MaxNumber}");
+                    ReplyText($@"{Setting_MinNumber}-{Setting_MaxNumber}");
                 }
             }
         }

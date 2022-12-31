@@ -15,14 +15,14 @@ namespace LineBot.Domain.TextEvent
 
         public void Result()
         {
-            if (FinalSetting.IsPlay)
+            if (FinalNumber.Setting_IsPlay)
             {
                 // 出題
                 GuessQuestion();
             }
             else
             {
-                FinalSetting.IsPlay = true;
+                FinalNumber.Setting_IsPlay = true;
                 GuessQuestion();
             }
         }
@@ -36,9 +36,9 @@ namespace LineBot.Domain.TextEvent
             int number = 100;
 
             // 初始設定 Next(99) 為 0-98 但應該是 1-99
-            FinalSetting.Answer = random.Next(number - 1) + 1;
-            FinalSetting.MinNumber = 0;
-            FinalSetting.MaxNumber = number;
+            FinalNumber.Setting_Answer = random.Next(number - 1) + 1;
+            FinalNumber.Setting_MinNumber = 0;
+            FinalNumber.Setting_MaxNumber = number;
 
             ReplyText($@"終極密碼開始 0-{number}");
         }

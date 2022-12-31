@@ -5,20 +5,23 @@ using LineBot.Interfaces;
 
 namespace LineBot.Domain.TextEvent
 {
-    public class ExitGuessNumber : BaseResponse, ITextEvent
+    public class GuessNumber : BaseResponse, ITextEvent
     {
         public string Pattern { get; set; } = @"^[\d]{4}$";
 
-        public ExitGuessNumber(WebhookEventDto eventObject) : base(eventObject)
+        public static string Setting_Ansert { get; set; } = string.Empty;
+        public static bool Setting_IsPlay { get; set; } = false;
+
+        public GuessNumber(WebhookEventDto eventObject) : base(eventObject)
         {
         }
 
         public void Result()
         {
-            if (GuessNumberSetting.IsPlay)
+            if (Setting_IsPlay)
             {
                 string userNumber = EventObject.Message.Text;
-                string answer = GuessNumberSetting.Answer;
+                string answer = Setting_Ansert;
 
                 // 位置相同 = ?A
                 int a = answer.Where((data, i) => data == userNumber[i]).Count();
@@ -26,7 +29,7 @@ namespace LineBot.Domain.TextEvent
                 if (a == answer.Length)
                 {
                     // 猜對答案
-                    GuessNumberSetting.IsPlay = false;
+                    Setting_IsPlay = false;
                     ReplyText($@"恭喜你猜對了 答案為{answer}");
                 }
                 else

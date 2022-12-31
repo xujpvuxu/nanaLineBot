@@ -15,9 +15,9 @@ namespace LineBot.Domain.TextEvent
 
         public void Result()
         {
-            if (FinalSetting.IsPlay)
+            if (FinalNumber.Setting_IsPlay)
             {
-                FinalSetting.IsPlay = false;
+                FinalNumber.Setting_IsPlay = false;
                 ReplyText("終極密碼已結束");
             }
         }

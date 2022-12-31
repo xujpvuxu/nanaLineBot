@@ -12,7 +12,7 @@ namespace LineBot.Domain.TextEvent
 
         public string Pattern { get; set; } = @"^崩壞$";
 
-        private string Datetime = string.Empty;
+        private static string Datetime = string.Empty;
 
         public void Result()
         {
@@ -33,6 +33,7 @@ namespace LineBot.Domain.TextEvent
                     new Feebee(),
                 };
                 gifts.AsParallel().ForAll(gift => gift.GetDailyGift());
+                Datetime = dateTime;
                 ReplyText("每日登入已完成");
             }
         }

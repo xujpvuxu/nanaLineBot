@@ -15,14 +15,14 @@ namespace LineBot.Domain.TextEvent
 
         public void Result()
         {
-            if (GuessNumberSetting.IsPlay)
+            if (GuessNumber.Setting_IsPlay)
             {
                 // 出題
                 GuessQuestion();
             }
             else
             {
-                GuessNumberSetting.IsPlay = true;
+                GuessNumber.Setting_IsPlay = true;
                 GuessQuestion();
             }
         }
@@ -43,7 +43,7 @@ namespace LineBot.Domain.TextEvent
                 question[i] = question[randomNumber];
                 question[randomNumber] = tempPosition;
             }
-            GuessNumberSetting.Answer = string.Join(string.Empty, question.Take(4).Select(x => x.ToString()));
+            GuessNumber.Setting_Ansert = string.Join(string.Empty, question.Take(4).Select(x => x.ToString()));
 
             ReplyText("請猜數字 0000-9999");
         }
