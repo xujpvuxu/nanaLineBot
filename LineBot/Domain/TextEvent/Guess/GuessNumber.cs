@@ -11,6 +11,7 @@ namespace LineBot.Domain.TextEvent
 
         public static string Setting_Ansert { get; set; } = string.Empty;
         public static bool Setting_IsPlay { get; set; } = false;
+        public static List<(string count, string userAnswer)> HistoryRecord = new List<(string, string)>();
 
         public GuessNumber(WebhookEventDto eventObject) : base(eventObject)
         {
@@ -21,23 +22,24 @@ namespace LineBot.Domain.TextEvent
             if (Setting_IsPlay)
             {
                 string userNumber = EventObject.Message.Text;
-                string answer = Setting_Ansert;
 
                 // 位置相同 = ?A
-                int a = answer.Where((data, i) => data == userNumber[i]).Count();
+                int a = Setting_Ansert.Where((data, i) => data == userNumber[i]).Count();
 
-                if (a == answer.Length)
+                int currentCount = HistoryRecord.Count + 1;
+                if (a == Setting_Ansert.Length)
                 {
                     // 猜對答案
                     Setting_IsPlay = false;
-                    ReplyText($@"恭喜你猜對了 答案為{answer}");
+                    ReplyText($@"恭喜第{currentCount}次你猜對了　答案為{Setting_Ansert}");
                 }
                 else
                 {
                     // 有相同的數字 = ? B
-                    int b = answer.Select(data => data.ToString()).Intersect(userNumber.Select(data => data.ToString()).ToList()).Count();
+                    int b = Setting_Ansert.Select(data => data.ToString()).Intersect(userNumber.Select(data => data.ToString()).ToList()).Count();
                     // B = B-A = 真正的B
-                    ReplyText($@"{userNumber}　{a}A{b - a}B");
+                    HistoryRecord.Add((currentCount.ToString("00"), $@"{userNumber}　{a}A{b - a}B"));
+                    ReplyText(string.Join(Environment.NewLine, HistoryRecord.Select(data => $"{data.count}　{data.userAnswer}")));
                 }
             }
         }

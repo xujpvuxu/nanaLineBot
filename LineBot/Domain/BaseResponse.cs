@@ -25,19 +25,19 @@ namespace LineBot.Domain
             EventObject = eventObject;
         }
 
-        public void ReplyText(List<string> text)
+        public void ReplyText(IEnumerable<string> text)
         {
             var replyMessage = new ReplyMessageRequestDto<TextMessageDto>(EventObject);
-            text.ForEach(x => replyMessage.Messages.Add(new TextMessageDto { Text = x }));
+            text.ToList().ForEach(x => replyMessage.Messages.Add(new TextMessageDto { Text = x }));
             ReplyMessageHandler("text", replyMessage);
         }
 
         public void ReplyImage(string uri) => ReplyImage(new List<string> { uri });
 
-        public void ReplyImage(List<string> uries)
+        public void ReplyImage(IEnumerable<string> uries)
         {
             var replyMessage = new ReplyMessageRequestDto<ImageMessageDto>(EventObject);
-            uries.ForEach(x => replyMessage.Messages.Add(new ImageMessageDto { OriginalContentUrl = x, PreviewImageUrl = x, }));
+            uries.ToList().ForEach(x => replyMessage.Messages.Add(new ImageMessageDto { OriginalContentUrl = x, PreviewImageUrl = x, }));
             ReplyMessageHandler("text", replyMessage);
         }
 

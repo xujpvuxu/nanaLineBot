@@ -44,7 +44,7 @@ namespace LineBot.Domain.TextEvent
                 question[randomNumber] = tempPosition;
             }
             GuessNumber.Setting_Ansert = string.Join(string.Empty, question.Take(4).Select(x => x.ToString()));
-
+            GuessNumber.HistoryRecord = new List<(string, string)>();
             ReplyText("請猜數字 0000-9999");
         }
     }
