@@ -62,14 +62,9 @@ namespace LineBot.Domain
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", ChannelAccessToken); //帶入 channel access token
             string json = JsonProvider.Serialize(request);
-            HttpRequestMessage requestMessage = new HttpRequestMessage
-            {
-                Method = HttpMethod.Post,
-                RequestUri = new Uri(ReplyMessageUri),
-                Content = new StringContent(json, Encoding.UTF8, "application/json")
-            };
 
-            var response = await client.SendAsync(requestMessage);
+            StringContent stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PostAsync(ReplyMessageUri, stringContent);
             Console.WriteLine(await response.Content.ReadAsStringAsync());
         }
     }
