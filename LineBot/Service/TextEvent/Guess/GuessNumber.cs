@@ -23,23 +23,31 @@ namespace LineBot.Domain.TextEvent
             {
                 string userNumber = EventObject.Message.Text;
 
-                // 位置相同 = ?A
-                int a = Setting_Ansert.Where((data, i) => data == userNumber[i]).Count();
-
-                int currentCount = HistoryRecord.Count + 1;
-                if (a == Setting_Ansert.Length)
+                var ee = userNumber.GroupBy(data => data).Where(data => data.ToList().Count > 1).ToList();
+                if (userNumber.GroupBy(data => data).Where(data => data.ToList().Count > 1).Any())
                 {
-                    // 猜對答案
-                    Setting_IsPlay = false;
-                    ReplyText($@"恭喜第{currentCount}次你猜對了　答案為{Setting_Ansert}");
+                    ReplyText("靠腰喔！不能重複啦！！！");
                 }
                 else
                 {
-                    // 有相同的數字 = ? B
-                    int b = Setting_Ansert.Select(data => data.ToString()).Intersect(userNumber.Select(data => data.ToString()).ToList()).Count();
-                    // B = B-A = 真正的B
-                    HistoryRecord.Add((currentCount.ToString("00"), $@"{userNumber}　{a}A{b - a}B"));
-                    ReplyText(string.Join(Environment.NewLine, HistoryRecord.Select(data => $"{data.count}　{data.userAnswer}")));
+                    // 位置相同 = ?A
+                    int a = Setting_Ansert.Where((data, i) => data == userNumber[i]).Count();
+
+                    int currentCount = HistoryRecord.Count + 1;
+                    if (a == Setting_Ansert.Length)
+                    {
+                        // 猜對答案
+                        Setting_IsPlay = false;
+                        ReplyText($@"恭喜第{currentCount}次你猜對了　答案為{Setting_Ansert}");
+                    }
+                    else
+                    {
+                        // 有相同的數字 = ? B
+                        int b = Setting_Ansert.Select(data => data.ToString()).Intersect(userNumber.Select(data => data.ToString()).ToList()).Count();
+                        // B = B-A = 真正的B
+                        HistoryRecord.Add((currentCount.ToString("00"), $@"{userNumber}　{a}A{b - a}B"));
+                        ReplyText(string.Join(Environment.NewLine, HistoryRecord.Select(data => $"{data.count}　{data.userAnswer}")));
+                    }
                 }
             }
         }
