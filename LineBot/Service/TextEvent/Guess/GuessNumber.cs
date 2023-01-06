@@ -2,6 +2,7 @@
 using LineBot.DTO.Messages.Request;
 using LineBot.DTO.Webhook;
 using LineBot.Interfaces;
+using LineBot.Service.TextEvent.Guess;
 
 namespace LineBot.Domain.TextEvent
 {
@@ -23,10 +24,20 @@ namespace LineBot.Domain.TextEvent
             {
                 string userNumber = EventObject.Message.Text;
 
-                var ee = userNumber.GroupBy(data => data).Where(data => data.ToList().Count > 1).ToList();
-                if (userNumber.GroupBy(data => data).Where(data => data.ToList().Count > 1).Any())
+                List<IGuessCondition> conditions = new List<IGuessCondition>
                 {
-                    ReplyText("靠腰喔！不能重複啦！！！");
+                   new RepeatNumber(),
+                   new RepeatGuessNumber()
+                };
+
+                List<string> replyTexts = conditions.Select(data => data.Condition(userNumber, HistoryRecord))
+                                                                       .Where(data => data.isInvalid)
+                                                                       .Select(data => data.replyText)
+                                                                       .ToList();
+
+                if (replyTexts.Any())
+                {
+                    ReplyText(replyTexts.First());
                 }
                 else
                 {
