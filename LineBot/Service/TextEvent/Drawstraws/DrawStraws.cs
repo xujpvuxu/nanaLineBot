@@ -29,32 +29,12 @@ namespace LineBot.Domain.TextEvent
 
         private void RandomLots()
         {
-            List<string> negitive = GetNegativeEnergy();
-            ForRandom(negitive);
+            List<string> negitive = GetNegativeEnergy().ToRandom();
 
             Lots = LotTypes().SelectMany(data => Enumerable.Repeat(data.type, data.count))
                              .Zip(negitive, (x, y) => (x, y))
-                             .ToList();
-            ForRandom(Lots);
-        }
-
-        /// <summary>
-        /// 洗亂
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="source"></param>
-        private void ForRandom<T>(List<T> source)
-        {
-            Random rand = new Random(Guid.NewGuid().GetHashCode());
-
-            for (int i = 0; i < source.Count; i++)
-            {
-                int tempPosition = rand.Next(0, source.Count);
-
-                var temp = source[i];
-                source[i] = source[tempPosition];
-                source[tempPosition] = temp;
-            }
+                             .ToList()
+                             .ToRandom();
         }
 
         /// <summary>
@@ -104,7 +84,8 @@ namespace LineBot.Domain.TextEvent
                                             return result;
                                         })
                                   .Where((data, i) => i != 89)
-                                  .Take(98).ToList();
+                                  .Take(98)
+                                  .ToList();
             negatives.Add("努力不保證成功，偷懶保證輕鬆！");
             negatives.Add("世上無難事，只要肯放棄");
             return negatives;
