@@ -27,7 +27,7 @@ namespace LineBot
             // 將資料寫入Dic中的List
             foreach (Match item in trValue.Skip(1))
             {
-                List<Match> matchValue = Regex.Matches(item.Value, @"<td.*?>(?<value>.*?)</td>").OfType<Match>().ToList();
+                List<Match> matchValue = Regex.Matches(item.Value, @"<td.*?>(.*?<div.*?>|)(?<value>.*?)(</div>|)</td>").OfType<Match>().ToList();
 
                 bool isOver = true;
                 for (int i = 0; i < columnName.Count; i++)
@@ -67,19 +67,12 @@ namespace LineBot
         /// <typeparam name="T"></typeparam>
         /// <param name="source"></param>
 
-        public static List<T> ToRandom<T>(this List<T> source)
+        public static List<T> ToRandomList<T>(this IEnumerable<T> source)
         {
             Random rand = new Random(Guid.NewGuid().GetHashCode());
 
-            for (int i = 0; i < source.Count; i++)
-            {
-                int tempPosition = rand.Next(0, source.Count);
-
-                var temp = source[i];
-                source[i] = source[tempPosition];
-                source[tempPosition] = temp;
-            }
-            return source;
+            return source.OrderBy(data => rand.Next())
+                         .ToList();
         }
     }
 }

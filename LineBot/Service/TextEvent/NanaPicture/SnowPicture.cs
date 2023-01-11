@@ -22,7 +22,7 @@ namespace LineBot.Domain.TextEvent
                 StaticFuntion.GetExcel<SevenPicturesDAO>(SnowPictureUri);
             }
 
-            ReplyImage(SevenPicturesDAO.SnowPicture.ToRandom().First());
+            ReplyImage(SevenPicturesDAO.SnowPicture.ToRandomList().First());
         }
     }
 }

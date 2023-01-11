@@ -23,7 +23,7 @@ namespace LineBot.Domain.TextEvent
             {
                 StaticFuntion.GetExcel<SevenPicturesDAO>(NanaPicuteUri);
             }
-            ReplyImage(SevenPicturesDAO.NanaPicture.ToRandom().First());
+            ReplyImage(SevenPicturesDAO.NanaPicture.ToRandomList().First());
         }
     }
 }
