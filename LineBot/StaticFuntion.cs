@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Globalization;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace LineBot
@@ -47,7 +48,7 @@ namespace LineBot
             // 後處理欄位資料 改成 Dic<欄位名稱,欄位值>
             Dictionary<string, List<string>> res = columnName.ToDictionary(
                                                             Name => Name.Value.Name,
-                                                            value => value.Value.Item2);
+                                                            value => value.Value.Item2.ToRandomList());
 
             // 寫入資料
             T writedModel = new T();
@@ -73,6 +74,19 @@ namespace LineBot
 
             return source.OrderBy(data => rand.Next())
                          .ToList();
+        }
+
+        public static T GetRandomOne<T>(this List<T> source)
+        {
+            Random random = new Random(Guid.NewGuid().GetHashCode());
+            int randomNumber = random.Next(0, source.Count);
+            return source[randomNumber];
+        }
+
+        public static string ToTitleText(this string text)
+        {
+            TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+            return textInfo.ToTitleCase(text);
         }
     }
 }

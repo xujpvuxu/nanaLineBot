@@ -14,7 +14,7 @@
         // -------- 以下 event properties--------
         public string? ReplyToken { get; set; } // 回覆此事件所使用的 token
 
-        public MessageEventDto? Message { get; set; } // 收到訊息的事件，可收到 text、sticker、image、file、video、audio、location 訊息
+        public MessageEventSpaceDto? Message { get; set; } // 收到訊息的事件，可收到 text、sticker、image、file、video、audio、location 訊息
         public UnsendEventDto? Unsend { get; set; } //使用者“收回”訊息事件
     }
 
@@ -35,7 +35,7 @@
 
     // -------- 以下 message event --------
 
-    public class MessageEventDto
+    public class MessageEventSpaceDto
     {
         public string Id { get; set; }
         public string Type { get; set; }
@@ -43,13 +43,13 @@
         // Text Message Event
         public string? Text { get; set; }
 
-        public List<TextMessageEventEmojiDto>? Emojis { get; set; }
-        public TextMessageEventMentionDto? Mention { get; set; }
+        public List<TextMessageEventSpaceEmojiDto>? Emojis { get; set; }
+        public TextMessageEventSpaceMentionDto? Mention { get; set; }
 
         // Image & Video & Audio Message Event
         public ContentProviderDto? ContentProvider { get; set; }
 
-        public ImageMessageEventImageSetDto? ImageSet { get; set; }
+        public ImageMessageEventSpaceImageSetDto? ImageSet { get; set; }
         public int? Duration { get; set; }
 
         //File Message Event
@@ -72,7 +72,7 @@
         public List<string>? Keywords { get; set; }
     }
 
-    public class TextMessageEventEmojiDto
+    public class TextMessageEventSpaceEmojiDto
     {
         public int Index { get; set; }
         public int Length { get; set; }
@@ -80,12 +80,12 @@
         public string EmojiId { get; set; }
     }
 
-    public class TextMessageEventMentionDto
+    public class TextMessageEventSpaceMentionDto
     {
-        public List<TextMessageEventMentioneeDto> Mentionees { get; set; }
+        public List<TextMessageEventSpaceMentioneeDto> Mentionees { get; set; }
     }
 
-    public class TextMessageEventMentioneeDto
+    public class TextMessageEventSpaceMentioneeDto
     {
         public int Index { get; set; }
         public int Length { get; set; }
@@ -99,7 +99,7 @@
         public string? PreviewImageUrl { get; set; }
     }
 
-    public class ImageMessageEventImageSetDto
+    public class ImageMessageEventSpaceImageSetDto
     {
         public string Id { get; set; }
         public string Index { get; set; }
