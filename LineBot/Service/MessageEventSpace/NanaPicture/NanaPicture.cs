@@ -7,11 +7,13 @@ using System.Text.RegularExpressions;
 
 namespace LineBot.Domain.MessageEventSpace
 {
-    public class NanaPicture : BaseResponse, IMessageEventSpace
+    public class NanaPicture : BaseResponse, IMessageEventSpace, IGoogleSheet
     {
         public string Pattern { get; set; } = "^抽.*?娜娜";
 
-        private string NanaPicuteUri = "https://docs.google.com/spreadsheets/d/1U7PDQJDnJTyX6Y-kbfEqI5IaT2a0sM3qYrXi96iAGaA/edit";
+        public string SheetID => "1U7PDQJDnJTyX6Y-kbfEqI5IaT2a0sM3qYrXi96iAGaA";
+
+        public string SheetWorkName => "Seven";
 
         public NanaPicture(WebhookEventDto eventObject) : base(eventObject)
         {
@@ -21,7 +23,7 @@ namespace LineBot.Domain.MessageEventSpace
         {
             if (!SevenPicturesDAO.NanaPicture.Any())
             {
-                StaticFuntion.GetExcel<SevenPicturesDAO>(NanaPicuteUri);
+                StaticFuntion.GetExcel<SevenPicturesDAO>(SheetID, SheetWorkName);
             }
             ReplyImage(SevenPicturesDAO.NanaPicture.GetRandomOne());
         }
