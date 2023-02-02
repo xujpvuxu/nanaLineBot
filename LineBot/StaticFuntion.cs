@@ -26,7 +26,7 @@ namespace LineBot
             {
                 if (property.Name.Equals(columnName))
                 {
-                    property.SetValue(writedModel, values.ToList());
+                    property.SetValue(writedModel, values.Skip(1).ToList());
                 }
             }
         }

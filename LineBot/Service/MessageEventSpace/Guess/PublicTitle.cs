@@ -15,16 +15,11 @@ namespace LineBot.Domain.MessageEventSpace
 
         public void Result()
         {
-            if (GuessNumber.Setting_IsPlay)
-            {
-                // 出題
-                GuessQuestion();
-            }
-            else
+            if (!GuessNumber.Setting_IsPlay)
             {
                 GuessNumber.Setting_IsPlay = true;
-                GuessQuestion();
             }
+            GuessQuestion();
         }
 
         /// <summary>
