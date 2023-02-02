@@ -7,8 +7,6 @@ namespace LineBot.Domain.MessageEventSpace
 {
     public class DrawStraws : BaseResponse, IMessageEventSpace, IGoogleSheet
     {
-        //private string NegativeEnergyUri = @"https://docs.google.com/spreadsheets/d/134R97lsH4h9Z7oOXOlBt5QPa0BNZT7RULU3aJidQFfI/edit";
-
         public DrawStraws(WebhookEventDto eventObject) : base(eventObject)
         {
         }
@@ -25,16 +23,18 @@ namespace LineBot.Domain.MessageEventSpace
         {
             if (!Lots.Any())
             {
-                if (!CardDAO.NegitiveEnergys.Any())
-                {
-                    StaticFuntion.GetExcel<CardDAO>(SheetID, SheetWorkName);
-                }
-
+                StaticFuntion.GetExcel<CardDAO>(SheetID, SheetWorkName);
                 Lots = LotTypes().SelectMany(data => Enumerable.Repeat(data.type, data.count))
                                  .ToList();
             }
 
-            ReplyText(new List<string> { Lots.GetRandomOne(), CardDAO.NegitiveEnergys.GetRandomOne() });
+            int hour = DateTime.Now.Hour;
+
+            string resultLot = (hour % 2 == 1) ?
+                                    CardDAO.PostiveEnergys.GetRandomOne() :
+                                    CardDAO.NegitiveEnergys.GetRandomOne();
+
+            ReplyText(new List<string> { Lots.GetRandomOne(), resultLot });
         }
 
         /// <summary>

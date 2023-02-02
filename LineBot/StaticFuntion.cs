@@ -16,18 +16,29 @@ namespace LineBot
             HttpClient client = new HttpClient();
 
             string content = client.GetStringAsync($@"https://sheets.googleapis.com/v4/spreadsheets/{sheetID}/values/{SheetWorkName}?key={ApiKey}").Result;
-            List<string> values = JsonConvert.DeserializeObject<GoogleSheet>(content).values.SelectMany(data => data).ToList();
+            string[][] values = JsonConvert.DeserializeObject<GoogleSheet>(content).values;
 
-            string columnName = values.First();
+            Dictionary<string, List<string>> columnValue = values.Select(data => data.Select(
+                                                                                          (data, i) => new
+                                                                                          {
+                                                                                              Index = i,
+                                                                                              value = data
+                                                                                          }))
+                                                               .SelectMany(data => data)
+                                                               .GroupBy(data => data.Index)
+                                                               .ToDictionary(
+                                                                   key => key.Select(data => data.value)
+                                                                             .First(),
+                                                                   value => value.Select(data => data.value)
+                                                                                 .Skip(1)
+                                                                                 .Where(data => !string.IsNullOrEmpty(data))
+                                                                                 .ToList());
             // 寫入資料
             T writedModel = new T();
             PropertyInfo[] source = writedModel.GetType().GetProperties();
             foreach (PropertyInfo property in source)
             {
-                if (property.Name.Equals(columnName))
-                {
-                    property.SetValue(writedModel, values.Skip(1).ToList());
-                }
+                property.SetValue(writedModel, columnValue[property.Name]);
             }
         }
 
