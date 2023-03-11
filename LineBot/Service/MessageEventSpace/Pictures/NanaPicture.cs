@@ -1,4 +1,5 @@
 ﻿using LineBot.DAO;
+using LineBot.Domain.MessageEventSpace.Base;
 using LineBot.DTO.Messages;
 using LineBot.DTO.Messages.Request;
 using LineBot.DTO.Webhook;
@@ -7,25 +8,20 @@ using System.Text.RegularExpressions;
 
 namespace LineBot.Domain.MessageEventSpace
 {
-    public class NanaPicture : BaseResponse, IMessageEventSpace, IGoogleSheet
+    public class NanaPicture : BasePicture, IMessageEventSpace
     {
         public string Pattern { get; set; } = "^抽.*?娜娜";
 
-        public string SheetID => "1U7PDQJDnJTyX6Y-kbfEqI5IaT2a0sM3qYrXi96iAGaA";
-
-        public string SheetWorkName => "Seven";
-
         public NanaPicture(WebhookEventDto eventObject) : base(eventObject)
         {
+            SheetID = "1U7PDQJDnJTyX6Y-kbfEqI5IaT2a0sM3qYrXi96iAGaA";
+            SheetWorkName = "Seven";
         }
 
         public void Result()
         {
-            if (!SevenPicturesDAO.NanaPicture.Any())
-            {
-                StaticFuntion.GetExcel<SevenPicturesDAO>(SheetID, SheetWorkName);
-            }
-            ReplyImage(SevenPicturesDAO.NanaPicture.GetRandomOne());
+            (bool isPicture, string replyMessge) = IsGetPicture(SevenPicturesDAO.NanaPicture, SheetID, SheetWorkName);
+            SendPicture(isPicture, replyMessge, SevenPicturesDAO.NanaPicture);
         }
     }
 }

@@ -29,11 +29,11 @@ namespace LineBot.Domain
                                     .ToList();
                 }
 
-                Patterns.AsParallel().ForAll(p =>
+                Patterns.AsParallel().ForAll(perClass =>
                 {
-                    if (Regex.IsMatch(eventObject.Message.Text, p.pattern))
+                    if (Regex.IsMatch(eventObject.Message.Text, perClass.pattern))
                     {
-                        ((IMessageEventSpace)Activator.CreateInstance(p.type, new object[] { eventObject })).Result();
+                        ((IMessageEventSpace)Activator.CreateInstance(perClass.type, new object[] { eventObject })).Result();
                     }
                 });
             }

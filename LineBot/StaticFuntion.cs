@@ -38,7 +38,11 @@ namespace LineBot
             PropertyInfo[] source = writedModel.GetType().GetProperties();
             foreach (PropertyInfo property in source)
             {
-                property.SetValue(writedModel, columnValue[property.Name]);
+                if (columnValue.TryGetValue(property.Name, out List<string> valuesds))
+                {
+                    property.SetValue(writedModel, columnValue[property.Name]);
+                }
+
             }
         }
 
