@@ -17,12 +17,11 @@ namespace LineBot.Domain.MessageEventSpace.Base
         private static int Limit = 8;
         private static List<int> Dices = Enumerable.Range(1, Limit).ToList();
 
-
         public BasePicture(WebhookEventDto eventObject) : base(eventObject)
         {
         }
 
-        public (bool, string) IsGetPicture(List<string> pictures, string sheetID, string sheetWorkName)
+        public (bool, string) IsGetPicture(List<string> pictures, string sheetID, string sheetWorkName, bool isCollect = true)
         {
             bool result = false;
             if (!Collections.TryGetValue(EventObject.Source.UserId, out int collect))
@@ -31,6 +30,7 @@ namespace LineBot.Domain.MessageEventSpace.Base
             }
 
             int nowCollect = Dices.GetRandomOne() + collect;
+            if (!isCollect) { nowCollect = Limit; }
 
             if (nowCollect >= Limit)
             {
@@ -48,7 +48,7 @@ namespace LineBot.Domain.MessageEventSpace.Base
 
         public void SendPicture(bool isPicture, string replyMessge, List<string> pictures)
         {
-            List<string> result = new List<string> ();
+            List<string> result = new List<string>();
             if (isPicture)
             {
                 result.Add(pictures.GetRandomOne());
@@ -59,7 +59,6 @@ namespace LineBot.Domain.MessageEventSpace.Base
                 result.Add(replyMessge);
                 ReplyText(result);
             }
-            
         }
     }
 }

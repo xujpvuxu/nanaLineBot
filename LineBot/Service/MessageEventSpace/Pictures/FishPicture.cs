@@ -20,7 +20,7 @@ namespace LineBot.Domain.MessageEventSpace
 
         public void Result()
         {
-            (bool isPicture, string replyMessge) = IsGetPicture(SevenPicturesDAO.FishPicture, SheetID, SheetWorkName);
+            (bool isPicture, string replyMessge) = IsGetPicture(SevenPicturesDAO.FishPicture, SheetID, SheetWorkName,false);
             SendPicture(isPicture, replyMessge, SevenPicturesDAO.FishPicture);
         }
     }
