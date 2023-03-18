@@ -2,10 +2,9 @@
 
 namespace LineBot.Interfaces
 {
-    public interface IDaily
+    public interface IGarageplay
     {
-        string Uri { get; set; }
-
-        void GetDailyGift();
+        string Uri { get; }
+        string GetMovieDetail();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using LineBot.Domain.MessageEventSpace.Daily.Sub;
 using LineBot.DTO.Webhook;
 using LineBot.Interfaces;
+using LineBot.Service.MessageEventSpace.Daily.Movie;
 
 namespace LineBot.Domain.MessageEventSpace
 {
@@ -33,8 +34,16 @@ namespace LineBot.Domain.MessageEventSpace
                     new Feebee(),
                 };
                 gifts.AsParallel().ForAll(gift => gift.GetDailyGift());
+
+                // Magic Hour
+                List<string> garaDetail = new List<string>();
+                garaDetail.Add("會員場");
+                garaDetail.Add(new GaraVipShow().GetMovieDetail());
+                garaDetail.Add("");
+                garaDetail.Add("首映會及學生場");
+                garaDetail.Add(new GaraFirstShow().GetMovieDetail());
                 Datetime = dateTime;
-                ReplyText("每日登入已完成");
+                ReplyText(string.Join(Environment.NewLine, garaDetail));
             }
         }
     }
