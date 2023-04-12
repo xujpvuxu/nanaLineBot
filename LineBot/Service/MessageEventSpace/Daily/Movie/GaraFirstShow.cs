@@ -21,7 +21,7 @@ namespace LineBot.Service.MessageEventSpace.Daily.Movie
                 result.Add($"地點：{item.event_location}");
                 result.Add($"開演時間：{item.clock_showtime}");
                 result.Add($"點數：{item.preview_points} P");
-                result.Add($"座位：{item.preview_remain} / {item.preview_limit}");
+                result.Add($"座位：{item.preview_remain} / {item.preview_limit} / {item.qty}");
                 result.Add("");
             }
             return string.Join(Environment.NewLine, result);
