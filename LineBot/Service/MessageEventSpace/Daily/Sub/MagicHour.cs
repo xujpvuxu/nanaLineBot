@@ -13,6 +13,7 @@ namespace LineBot.Domain.MessageEventSpace.Daily.Sub
         public void GetDailyGift()
         {
             HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Add("User-Agent", "PostmanRuntime/7.32.2");
             foreach (DailyLoging perDailyLoging in GetModel())
             {
                 //FormData參數

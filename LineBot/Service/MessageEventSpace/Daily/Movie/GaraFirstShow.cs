@@ -11,6 +11,7 @@ namespace LineBot.Service.MessageEventSpace.Daily.Movie
         public string GetMovieDetail()
         {
             HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Add("User-Agent", "PostmanRuntime/7.32.2");
             string content = client.GetStringAsync(Uri).Result;
             GarageplayModel sample = JsonSerializer.Deserialize<GarageplayModel>(content);
 
