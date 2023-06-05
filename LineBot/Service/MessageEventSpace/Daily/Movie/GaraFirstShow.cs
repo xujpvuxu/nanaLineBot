@@ -4,15 +4,14 @@ using System.Text.Json;
 
 namespace LineBot.Service.MessageEventSpace.Daily.Movie
 {
-    public class GaraFirstShow : IGarageplay
+    public class GaraFirstShow : BaseMagicHour, IGarageplay
     {
         public string Uri => "https://garageplay.tw/api/sessions_vending?identity=chat_register";
 
         public string GetMovieDetail()
         {
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Add("User-Agent", "PostmanRuntime/7.32.2");
-            string content = client.GetStringAsync(Uri).Result;
+            
+            string content = Client.GetStringAsync(Uri).Result;
             GarageplayModel sample = JsonSerializer.Deserialize<GarageplayModel>(content);
 
             List<string> result = new List<string>();

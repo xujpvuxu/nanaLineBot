@@ -24,26 +24,28 @@ namespace LineBot.Domain.MessageEventSpace
             }
             else
             {
-                List<IDaily> gifts = new List<IDaily>
+                try
                 {
-                    new Bh3(),
-                    new MagicHour(),
-                    new OriginalGod(),
-                    new Agentm(),
-                    new Chickpt(),
-                    new Feebee(),
-                };
-                gifts.AsParallel().ForAll(gift => gift.GetDailyGift());
+                    List<IDaily> gifts = new List<IDaily>
+                    {
+                        new Bh3(),
+                        new OriginalGod(),
+                        new BStreet(),
+                        new Agentm(),
+                        new Chickpt(),
+                        new Feebee(),
+                        new MagicHour(),
+                    };
+                    gifts.AsParallel().ForAll(gift => gift.GetDailyGift());
 
-                // Magic Hour
-                List<string> garaDetail = new List<string>();
-                garaDetail.Add("會員場");
-                garaDetail.Add(new GaraVipShow().GetMovieDetail());
-                garaDetail.Add("");
-                garaDetail.Add("首映會及學生場");
-                garaDetail.Add(new GaraFirstShow().GetMovieDetail());
-                Datetime = dateTime;
-                ReplyText(string.Join(Environment.NewLine, garaDetail));
+                    ReplyText(string.Join(Environment.NewLine, "OK"));
+                }
+                catch (Exception ex)
+                {
+
+                    ReplyText(ex.ToString());
+                }
+                
             }
         }
     }

@@ -1,19 +1,20 @@
 ﻿using LineBot.Domain.MessageEventSpace.Daily.Model;
 using LineBot.Interfaces;
+using LineBot.Service.MessageEventSpace.Daily.Movie;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
 
 namespace LineBot.Domain.MessageEventSpace.Daily.Sub
 {
-    public class MagicHour : IDaily
+    public class MagicHour : BaseMagicHour, IDaily
     {
         public string Uri { get; set; }
 
         public void GetDailyGift()
         {
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Add("User-Agent", "PostmanRuntime/7.32.2");
+            //HttpClient client = new HttpClient();
+            //client.DefaultRequestHeaders.Add("User-Agent", "PostmanRuntime/7.32.2");
             foreach (DailyLoging perDailyLoging in GetModel())
             {
                 //FormData參數
@@ -23,7 +24,7 @@ namespace LineBot.Domain.MessageEventSpace.Daily.Sub
                    { new StringContent("checkin"), "source" },
                 };
 
-                HttpResponseMessage response = client.PostAsync(perDailyLoging.Uri, sentMultiData).Result;
+                HttpResponseMessage response = Client.PostAsync(perDailyLoging.Uri, sentMultiData).Result;
                 string responseContent = response.Content.ReadAsStringAsync().Result;
             }
         }
