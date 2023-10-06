@@ -38,7 +38,7 @@ namespace LineBot.Domain.MessageEventSpace
                     };
                     gifts.AsParallel().ForAll(gift => gift.GetDailyGift());
 
-                    ReplyText(string.Join(Environment.NewLine, "OK"));
+                    ReplyText(string.Join(Environment.NewLine, "日報告"));
                 }
                 catch (Exception ex)
                 {
