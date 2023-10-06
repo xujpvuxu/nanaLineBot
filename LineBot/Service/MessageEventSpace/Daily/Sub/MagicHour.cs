@@ -35,7 +35,6 @@ namespace LineBot.Domain.MessageEventSpace.Daily.Sub
             {
                 new DailyLoging{ Other1 = "2774889da3fd3f641fc95cdb2048073a", Uri = "https://garageplay.tw/api/chat_points/d5ac38abde48dd848f9f17de15bb9dfa" },
                 new DailyLoging{ Other1 = "4cea20cc4ed45f3c57ff9d3fe12aa8f0", Uri = "https://garageplay.tw/api/chat_points/5ab6953ccafcad78924b59589afc9122" },
-                new DailyLoging{ Other1 = "9bf9e972b3e9af58ccf2bf239a91b16b", Uri = "https://garageplay.tw/api/chat_points/59196e08626e3499f20f1abc460b8b4e" },
                 new DailyLoging{ Other1 = "da899c96f0aec5e81fd9a44116d73c14", Uri = "https://garageplay.tw/api/chat_points/3f92826c17326b28bd13ec97e2716287" },
              };
         }
