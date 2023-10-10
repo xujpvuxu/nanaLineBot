@@ -109,180 +109,183 @@ namespace LineBot.Service
             {
                 for (int i = 0; i < 5; i++)
                 {
-                    int tempStartPro = startPro;
-                    int tempStartEng = startEng;
-                    int tempWood = wood;
-                    int tempFire = fire;
-                    int tempDust = dust;
-                    int tempGold = gold;
-                    int tempWater = water;
-
-                    bool isRun = false;
-                    List<EProperity> tempProcess = process.ToList();
-
-                    EProperity encome = (EProperity)i;
-                    switch (encome)
+                    if (!HasAnswer)
                     {
-                        case EProperity.木:
-                            tempWood++;
-                            if (tempWood <= Request.Wood.Count)
-                            {
-                                isRun = true;
-                                // 一開始屬性 遇到木
-                                switch (start)
-                                {
-                                    case EProperity.木:
-                                        break;
+                        int tempStartPro = startPro;
+                        int tempStartEng = startEng;
+                        int tempWood = wood;
+                        int tempFire = fire;
+                        int tempDust = dust;
+                        int tempGold = gold;
+                        int tempWater = water;
 
-                                    case EProperity.火:
-                                        tempStartEng++;
-                                        break;
+                        bool isRun = false;
+                        List<EProperity> tempProcess = process.ToList();
 
-                                    case EProperity.土:
-                                        tempStartEng--;
-                                        break;
-
-                                    case EProperity.金:
-                                        tempStartEng--;
-                                        break;
-
-                                    case EProperity.水:
-                                        tempStartPro = (int)EProperity.木;
-                                        break;
-
-                                    default:
-                                        break;
-                                }
-                            }
-                            break;
-
-                        case EProperity.火:
-                            tempFire++;
-                            if (tempFire <= Request.Fire.Count)
-                            {
-                                isRun = true;
-                                // 一開始屬性 遇到火
-                                switch (start)
-                                {
-                                    case EProperity.木:
-                                        tempStartPro = (int)EProperity.火;
-                                        break;
-
-                                    case EProperity.火:
-                                        break;
-
-                                    case EProperity.土:
-                                        tempStartEng++;
-                                        break;
-
-                                    case EProperity.金:
-                                        tempStartEng--;
-                                        break;
-
-                                    case EProperity.水:
-                                        tempStartEng--;
-                                        break;
-                                }
-                            }
-                            break;
-
-                        case EProperity.土:
-                            tempDust++;
-                            if (tempDust <= Request.Dust.Count)
-                            {
-                                isRun = true;
-                                // 一開始屬性 遇到土
-                                switch (start)
-                                {
-                                    case EProperity.木:
-                                        tempStartEng--;
-                                        break;
-
-                                    case EProperity.火:
-                                        tempStartPro = (int)EProperity.土;
-                                        break;
-
-                                    case EProperity.土:
-                                        break;
-
-                                    case EProperity.金:
-                                        tempStartEng++;
-                                        break;
-
-                                    case EProperity.水:
-                                        tempStartEng--;
-                                        break;
-                                }
-                            }
-                            break;
-
-                        case EProperity.金:
-                            tempGold++;
-                            if (tempGold <= Request.Gold.Count)
-                            {
-                                isRun = true;
-                                // 一開始屬性 遇到金
-                                switch (start)
-                                {
-                                    case EProperity.木:
-                                        tempStartEng--;
-                                        break;
-
-                                    case EProperity.火:
-                                        tempStartEng--;
-                                        break;
-
-                                    case EProperity.土:
-                                        tempStartPro = (int)EProperity.金;
-                                        break;
-
-                                    case EProperity.金:
-                                        break;
-
-                                    case EProperity.水:
-                                        tempStartEng++;
-                                        break;
-                                }
-                            }
-                            break;
-
-                        case EProperity.水:
-                            tempWater++;
-                            if (tempWater <= Request.Water.Count)
-                            {
-                                isRun = true;
-                                // 一開始屬性 遇到水
-                                switch (start)
-                                {
-                                    case EProperity.木:
-                                        tempStartEng++;
-                                        break;
-
-                                    case EProperity.火:
-                                        tempStartEng--;
-                                        break;
-
-                                    case EProperity.土:
-                                        tempStartEng--;
-                                        break;
-
-                                    case EProperity.金:
-                                        tempStartPro = (int)EProperity.水;
-                                        break;
-
-                                    case EProperity.水:
-                                        break;
-                                }
-                            }
-                            break;
-                    }
-
-                    if (isRun)
-                    {
-                        if (tempStartEng != 0 && tempStartEng != 4)
+                        EProperity encome = (EProperity)i;
+                        switch (encome)
                         {
-                            tempProcess.Add(encome);
-                            Go(tempStartPro, tempStartEng, tempWood, tempFire, tempDust, tempGold, tempWood, path, tempProcess, diffPathCount);
+                            case EProperity.木:
+                                tempWood++;
+                                if (tempWood <= Request.Wood.Count)
+                                {
+                                    isRun = true;
+                                    // 一開始屬性 遇到木
+                                    switch (start)
+                                    {
+                                        case EProperity.木:
+                                            break;
+
+                                        case EProperity.火:
+                                            tempStartEng++;
+                                            break;
+
+                                        case EProperity.土:
+                                            tempStartEng--;
+                                            break;
+
+                                        case EProperity.金:
+                                            tempStartEng--;
+                                            break;
+
+                                        case EProperity.水:
+                                            tempStartPro = (int)EProperity.木;
+                                            break;
+
+                                        default:
+                                            break;
+                                    }
+                                }
+                                break;
+
+                            case EProperity.火:
+                                tempFire++;
+                                if (tempFire <= Request.Fire.Count)
+                                {
+                                    isRun = true;
+                                    // 一開始屬性 遇到火
+                                    switch (start)
+                                    {
+                                        case EProperity.木:
+                                            tempStartPro = (int)EProperity.火;
+                                            break;
+
+                                        case EProperity.火:
+                                            break;
+
+                                        case EProperity.土:
+                                            tempStartEng++;
+                                            break;
+
+                                        case EProperity.金:
+                                            tempStartEng--;
+                                            break;
+
+                                        case EProperity.水:
+                                            tempStartEng--;
+                                            break;
+                                    }
+                                }
+                                break;
+
+                            case EProperity.土:
+                                tempDust++;
+                                if (tempDust <= Request.Dust.Count)
+                                {
+                                    isRun = true;
+                                    // 一開始屬性 遇到土
+                                    switch (start)
+                                    {
+                                        case EProperity.木:
+                                            tempStartEng--;
+                                            break;
+
+                                        case EProperity.火:
+                                            tempStartPro = (int)EProperity.土;
+                                            break;
+
+                                        case EProperity.土:
+                                            break;
+
+                                        case EProperity.金:
+                                            tempStartEng++;
+                                            break;
+
+                                        case EProperity.水:
+                                            tempStartEng--;
+                                            break;
+                                    }
+                                }
+                                break;
+
+                            case EProperity.金:
+                                tempGold++;
+                                if (tempGold <= Request.Gold.Count)
+                                {
+                                    isRun = true;
+                                    // 一開始屬性 遇到金
+                                    switch (start)
+                                    {
+                                        case EProperity.木:
+                                            tempStartEng--;
+                                            break;
+
+                                        case EProperity.火:
+                                            tempStartEng--;
+                                            break;
+
+                                        case EProperity.土:
+                                            tempStartPro = (int)EProperity.金;
+                                            break;
+
+                                        case EProperity.金:
+                                            break;
+
+                                        case EProperity.水:
+                                            tempStartEng++;
+                                            break;
+                                    }
+                                }
+                                break;
+
+                            case EProperity.水:
+                                tempWater++;
+                                if (tempWater <= Request.Water.Count)
+                                {
+                                    isRun = true;
+                                    // 一開始屬性 遇到水
+                                    switch (start)
+                                    {
+                                        case EProperity.木:
+                                            tempStartEng++;
+                                            break;
+
+                                        case EProperity.火:
+                                            tempStartEng--;
+                                            break;
+
+                                        case EProperity.土:
+                                            tempStartEng--;
+                                            break;
+
+                                        case EProperity.金:
+                                            tempStartPro = (int)EProperity.水;
+                                            break;
+
+                                        case EProperity.水:
+                                            break;
+                                    }
+                                }
+                                break;
+                        }
+
+                        if (isRun)
+                        {
+                            if (tempStartEng != 0 && tempStartEng != 4)
+                            {
+                                tempProcess.Add(encome);
+                                Go(tempStartPro, tempStartEng, tempWood, tempFire, tempDust, tempGold, tempWood, path, tempProcess, diffPathCount);
+                            }
                         }
                     }
                 }
