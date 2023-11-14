@@ -16,7 +16,7 @@ namespace LineBotMessage.Controllers
         public object Test([FromBody] WaDoneRequest request)
         {
             WaDoneService waDoneService = new WaDoneService(request);
-            waDoneService.GetWaDone();
+            waDoneService.GetWaDone(25);
 
             return new
             {
@@ -26,6 +26,19 @@ namespace LineBotMessage.Controllers
             };
         }
 
+        [HttpPost("Cute")]
+        public object Test1([FromBody] WaDoneRequest request)
+        {
+            WaDoneService waDoneService = new WaDoneService(request);
+            waDoneService.GetWaDone(18);
+
+            return new
+            {
+                Trans = waDoneService.ResultTransPath,
+                Index = waDoneService.ResultPath,
+                Result = waDoneService.ResultProperity
+            };
+        }
         [HttpGet("")]
         public void WakeUp()
         { 

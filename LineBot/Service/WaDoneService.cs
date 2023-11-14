@@ -23,7 +23,7 @@ namespace LineBot.Service
         /// <summary>
         /// 開始找答案
         /// </summary>
-        public void GetWaDone()
+        public void GetWaDone(int max)
         {
             Init();
             ResultTable = new DataTable();
@@ -33,7 +33,7 @@ namespace LineBot.Service
             if (string.IsNullOrEmpty(ErrorMessage))
             {
                 bool isLoop = true;
-                while (isLoop && Request.PathCount <= Math.Pow(Length, 2) - 2)
+                while (isLoop && Request.PathCount <= Math.Pow(Length, 2) - 2 && Request.PathCount<=max)
                 {
                     GetStartEnd();
                     if (Result.Any())
