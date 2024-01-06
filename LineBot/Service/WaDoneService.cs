@@ -34,31 +34,31 @@ namespace LineBot.Service
                 switch (Request.Task_Properity)
                 {
                     case EProperity.木:
-                        if (Request.Wood.Count > Request.Task_Properity_Count)
+                        if (Request.Wood.Count < Request.Task_Properity_Count)
                         {
                             return;
                         } 
                         break;
                     case EProperity.火:
-                        if (Request.Fire.Count > Request.Task_Properity_Count)
+                        if (Request.Fire.Count < Request.Task_Properity_Count)
                         {
                             return;
                         } 
                         break;
                     case EProperity.水:
-                        if (Request.Water.Count > Request.Task_Properity_Count)
+                        if (Request.Water.Count < Request.Task_Properity_Count)
                         {
                             return;
                         } 
                         break;
                     case EProperity.土:
-                        if (Request.Dust.Count > Request.Task_Properity_Count)
+                        if (Request.Dust.Count < Request.Task_Properity_Count)
                         {
                             return;
                         } 
                         break;
                     case EProperity.金:
-                        if (Request.Gold.Count > Request.Task_Properity_Count)
+                        if (Request.Gold.Count < Request.Task_Properity_Count)
                         {
                             return;
                         } 
