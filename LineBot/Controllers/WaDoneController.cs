@@ -30,7 +30,7 @@ namespace LineBotMessage.Controllers
         public object Test1([FromBody] WaDoneRequest request)
         {
             WaDoneService waDoneService = new WaDoneService(request);
-            waDoneService.GetWaDone(18);
+            waDoneService.GetWaDone(19);
 
             return new
             {

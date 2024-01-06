@@ -29,6 +29,43 @@ namespace LineBot.Service
             ResultTable = new DataTable();
             Enumerable.Range(1, Length).ToList().ForEach(x => ResultTable.Columns.Add(x.ToString()));
             Enumerable.Range(1, Length).ToList().ForEach(x => ResultTable.Rows.Add(ResultTable.NewRow()));
+            if (Request.Task_Properity_Count != 0)
+            {
+                switch (Request.Task_Properity)
+                {
+                    case EProperity.木:
+                        if (Request.Wood.Count > Request.Task_Properity_Count)
+                        {
+                            return;
+                        } 
+                        break;
+                    case EProperity.火:
+                        if (Request.Fire.Count > Request.Task_Properity_Count)
+                        {
+                            return;
+                        } 
+                        break;
+                    case EProperity.水:
+                        if (Request.Water.Count > Request.Task_Properity_Count)
+                        {
+                            return;
+                        } 
+                        break;
+                    case EProperity.土:
+                        if (Request.Dust.Count > Request.Task_Properity_Count)
+                        {
+                            return;
+                        } 
+                        break;
+                    case EProperity.金:
+                        if (Request.Gold.Count > Request.Task_Properity_Count)
+                        {
+                            return;
+                        } 
+                        break;
+                }
+            }
+
 
             if (string.IsNullOrEmpty(ErrorMessage))
             {
@@ -55,7 +92,6 @@ namespace LineBot.Service
         private List<(List<int>, List<int>)> Result = new List<(List<int>, List<int>)>();
 
         // 轉屬幾次
-        private Dictionary<string, int> NameToInt = new Dictionary<string, int>();
 
         private Dictionary<EProperity, int> ProperityToInt = new Dictionary<EProperity, int>();
 
@@ -70,14 +106,8 @@ namespace LineBot.Service
 
         private string ErrorMessage = string.Empty;
         private bool HasAnswer = false;
-        private List<EProperity> ResultProperityPath = new List<EProperity>();
         public List<int> ResultPath = new List<int>();
         public List<int> ResultTransPath = new List<int>();
-
-        private Dictionary<int, (int x, int y)> ParseCoor = Enumerable.Range(0, Length).SelectMany(x => Enumerable.Range(0, Length), (x, y) => (x, y))
-                                                                 .ToDictionary(
-                                                                       index => (index.x + 1) + (Length * index.y),
-                                                                       coordinate => (coordinate.x, coordinate.y));
 
         /// <summary>
         ///
