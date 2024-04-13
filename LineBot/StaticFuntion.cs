@@ -1,5 +1,6 @@
 ﻿using LineBot.Models;
 using Newtonsoft.Json;
+using System.Data;
 using System.Globalization;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -12,11 +13,7 @@ namespace LineBot
 
         public static void GetExcel<T>(string sheetID, string SheetWorkName) where T : class, new()
         {
-            // 從Excel取資料
-            HttpClient client = new HttpClient();
-
-            string content = client.GetStringAsync($@"https://sheets.googleapis.com/v4/spreadsheets/{sheetID}/values/{SheetWorkName}?key={ApiKey}").Result;
-            string[][] values = JsonConvert.DeserializeObject<GoogleSheet>(content).values;
+            string[][] values = GetExcelData(sheetID, SheetWorkName);
 
             Dictionary<string, List<string>> columnValue = values.Select(data => data.Select(
                                                                                           (data, i) => new
@@ -71,6 +68,21 @@ namespace LineBot
         {
             TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
             return textInfo.ToTitleCase(text);
+        }
+
+        /// <summary>
+        /// 取得Excel內容
+        /// </summary>
+        /// <param name="sheetID"></param>
+        /// <param name="SheetWorkName"></param>
+        /// <returns></returns>
+        public static string[][] GetExcelData(string sheetID, string SheetWorkName)
+        { 
+            // 從Excel取資料
+            HttpClient client = new HttpClient();
+
+            string content = client.GetStringAsync($@"https://sheets.googleapis.com/v4/spreadsheets/{sheetID}/values/{SheetWorkName}?key={ApiKey}").Result;
+            return JsonConvert.DeserializeObject<GoogleSheet>(content).values;
         }
     }
 }
