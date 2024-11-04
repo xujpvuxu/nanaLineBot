@@ -2,6 +2,7 @@
 using LineBot.DTO.Webhook;
 using LineBot.Interfaces;
 using LineBot.Service.MessageEventSpace.Daily.Movie;
+using LineBot.Service.MessageEventSpace.Monthes;
 
 namespace LineBot.Domain.MessageEventSpace
 {
@@ -38,7 +39,8 @@ namespace LineBot.Domain.MessageEventSpace
                     };
                     gifts.AsParallel().ForAll(gift => gift.GetDailyGift());
 
-                    ReplyText(string.Join(Environment.NewLine, "日報告"));
+                    string nextMonth = new Month().GetMonth();
+                    ReplyText(string.Join(Environment.NewLine, nextMonth));
                 }
                 catch (Exception ex)
                 {
