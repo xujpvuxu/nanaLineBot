@@ -22,6 +22,10 @@ namespace LineBot.Domain
             {
                 if (!Patterns.Any())
                 {
+                    // Service => MessageEventSpace => 建立資料夾及檔案
+                    // 檔案的namespace = namespace LineBot.Domain.MessageEventSpace
+                    // 繼承 :BasePicture, IMessageEventSpace
+
                     Patterns = GetEventClasses(eventObject.Type)
                                     .Select(type => (
                                         ((IMessageEventSpace)Activator.CreateInstance(type, new object[] { eventObject })).Pattern,
