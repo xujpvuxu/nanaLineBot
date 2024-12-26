@@ -1,4 +1,4 @@
-﻿namespace LineBot.DAO
+﻿namespace LineBot.ExcelModel
 {
     public class SevenPicturesDAO
     {

@@ -1,4 +1,4 @@
-﻿using LineBot.DAO;
+﻿using LineBot.ExcelModel;
 
 namespace LineBot.Service.MessageEventSpace.Sexs
 {
@@ -6,19 +6,13 @@ namespace LineBot.Service.MessageEventSpace.Sexs
     {
         private string SheetId = "1co08s6FapFHaV9L4eLET4zb9jqq2DGra7NH9j_vj0p0";
 
-        public string GetResult(int count )
+        public string GetResult(int count)
         {
             // 部位
-            StaticFuntion.GetExcel<SexDAO>(SheetId, "1-0");
-            List<string> part = SexDAO.SexCard.ToList();
-
-            // 動作
-            StaticFuntion.GetExcel<SexDAO>(SheetId, "1-1");
-            List<string> action = SexDAO.SexCard.ToList();
-
-            // 次數
-            StaticFuntion.GetExcel<SexDAO>(SheetId, "1-2");
-            List<string> time = SexDAO.SexCard.ToList();
+            StaticFuntion.GetExcel<SexCard>(SheetId, "1");
+            List<string> part = SexCard.Part.ToList();
+            List<string> action = SexCard.Action.ToList();
+            List<string> time = SexCard.Time.ToList();
 
             List<string> collection = new List<string>();
 
@@ -27,7 +21,7 @@ namespace LineBot.Service.MessageEventSpace.Sexs
             {
                 foreach (string gender in genders)
                 {
-                    collection.Add($@"{i+1}.{gender}:{action.GetRandomOne()}對方{part.GetRandomOne()}{time.GetRandomOne()}秒");
+                    collection.Add($@"{i + 1}.{gender}:{action.GetRandomOne()}對方{part.GetRandomOne()}{time.GetRandomOne()}秒");
                     collection.Add(Environment.NewLine);
                 }
                 collection.Add(Environment.NewLine);

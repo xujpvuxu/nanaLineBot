@@ -33,6 +33,8 @@ namespace LineBot
             // 寫入資料
             T writedModel = new T();
             PropertyInfo[] source = writedModel.GetType().GetProperties();
+            var ee =  writedModel.GetType();
+            var tt= ee.GetProperty("Part");
             foreach (PropertyInfo property in source)
             {
                 if (columnValue.TryGetValue(property.Name, out List<string> valuesds))
