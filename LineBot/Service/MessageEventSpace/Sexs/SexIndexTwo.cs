@@ -9,7 +9,7 @@ namespace LineBot.Service.MessageEventSpace.Sexs
         public string GetResult(int count)
         {
             // 部位
-            StaticFuntion.GetExcel<SexDAO>(SheetId, "2-0");
+            StaticFuntion.GetExcel<SexDAO>(SheetId, "2");
             List<string> part = SexDAO.SexCard.ToList();
 
             List<string> collection = new List<string>();
@@ -17,11 +17,8 @@ namespace LineBot.Service.MessageEventSpace.Sexs
             List<string> genders = new List<string> { "男", "女" };
             for (int i = 0; i < count; i++)
             {
-                foreach (string gender in genders)
-                {
-                    collection.Add($@"{i + 1}.{gender}:{part.GetRandomOne()}");
-                    collection.Add(Environment.NewLine);
-                }
+                collection.Add($@"{i + 1}.{genders.GetRandomOne()}:{part.GetRandomOne()}");
+                collection.Add(Environment.NewLine);
                 collection.Add(Environment.NewLine);
             }
 

@@ -19,11 +19,8 @@ namespace LineBot.Service.MessageEventSpace.Sexs
             List<string> genders = new List<string> { "男", "女" };
             for (int i = 0; i < count; i++)
             {
-                foreach (string gender in genders)
-                {
-                    collection.Add($@"{i + 1}.{gender}:{action.GetRandomOne()}對方{part.GetRandomOne()}{time.GetRandomOne()}秒");
-                    collection.Add(Environment.NewLine);
-                }
+                collection.Add($@"{i + 1}.{genders.GetRandomOne()}:{action.GetRandomOne()}對方{part.GetRandomOne()}{time.GetRandomOne()}秒");
+                collection.Add(Environment.NewLine);
                 collection.Add(Environment.NewLine);
             }
 
