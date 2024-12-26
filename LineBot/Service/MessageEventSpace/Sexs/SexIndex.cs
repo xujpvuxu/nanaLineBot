@@ -11,7 +11,7 @@ namespace LineBot.Domain.MessageEventSpace
         {
         }
 
-        public string Pattern { get; set; } = $@"^ss[\d][\d]$";
+        public string Pattern { get; set; } = $@"^ss[\d][\d]+$";
 
         public void Result()
         {
