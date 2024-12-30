@@ -15,7 +15,7 @@ namespace LineBot.Domain.MessageEventSpace
 
         public void Result()
         {
-            ReplyText($"zz 份數 熱量(Kcl) 蛋白質(g) 碳水化合物(g)");
+            ReplyText($"zz 份數 熱量(Kcl) 蛋白質(g) 碳水化合物(g) 鈉(mg)");
         }
     }
 }
