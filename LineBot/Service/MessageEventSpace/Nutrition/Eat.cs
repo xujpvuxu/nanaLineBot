@@ -35,9 +35,9 @@ namespace LineBot.Domain.MessageEventSpace
                                     0;
 
             decimal hotPercent = 100 / hot;
-            decimal eggPercent = egg * hotPercent;
+            decimal eggPercent = Math.Round((egg * hotPercent), 2);
             string eggGood = eggPercent <= 1 ? "好" : "不好";
-            decimal naPercent = na * hotPercent;
+            decimal naPercent = Math.Round((na * hotPercent), 2);
             string naGood = naPercent <= 100 ? "好" : "不好";
 
             List<string> source = new List<string>
