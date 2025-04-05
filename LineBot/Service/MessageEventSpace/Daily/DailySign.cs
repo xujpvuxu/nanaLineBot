@@ -32,7 +32,6 @@ namespace LineBot.Domain.MessageEventSpace
                         new Bh3(),
                         new OriginalGod(),
                         new BStreet(),
-                        new Agentm(),
                         new Chickpt(),
                         new Feebee(),
                         new MagicHour(),
