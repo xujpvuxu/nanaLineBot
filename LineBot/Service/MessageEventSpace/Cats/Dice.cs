@@ -13,6 +13,8 @@ namespace LineBot.Domain.MessageEventSpace
 
         public string Pattern { get; set; } = $@"^骰子[\d]+$";
 
+        public static int? LastResult { get; set; } = null;
+
         public void Result()
         {
             string inputText = EventObject.Message.Text;
@@ -20,7 +22,17 @@ namespace LineBot.Domain.MessageEventSpace
             string counter = inputText.Substring(2);
             int.TryParse(counter, out int count);
 
-            ReplyText(string.Join(Environment.NewLine, Enumerable.Range(0, count + 1).ToList().GetRandomOne()));
+            for (int i = 0; i < 5; i++)
+            {
+                int result = Enumerable.Range(0, count + 1).ToList().GetRandomOne();
+                if (LastResult == null || (LastResult != result))
+                {
+                    // 跟上次不一樣的結果就結束
+                    LastResult = result;
+                    break;
+                }
+            }
+            ReplyText(LastResult.ToString());
         }
     }
 }
