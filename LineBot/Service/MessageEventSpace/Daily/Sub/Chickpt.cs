@@ -36,15 +36,9 @@ namespace LineBot.Domain.MessageEventSpace.Daily.Sub
             {
                 new DailyLoging
                 {
-                    Other1 = "BB49A429-08EC-4254-9AFB-6A8DACD2ABF6",
+                    Other1 = "92D74E07-EC2B-4A3D-AB77-DD6D569DA281",
                     Other2 = "2010059",
-                    Other3 = "eyJpdiI6IlorTFZvaDBoUlwvdDZRMjNyblM1bDhnPT0iLCJ2YWx1ZSI6InZCcjJMdFprMnEwakh1cTVmOGxNV2lpbFY1WGE0Y3ZkaXY0a2RJSjIxUUk9IiwibWFjIjoiNzFhMzRlNDFiNTg3YjNjMTU1MjYxNWI2ZDYwNWYxODZmMmVlODg5OTA0MTY4OTllN2EyOTlkZDUwNjgwNTY5NyJ9",
-                },
-                new DailyLoging
-                {
-                    Other1 = "E00B5997-748A-42C6-981C-450983405B11",
-                    Other2 = "2367927",
-                    Other3 = "eyJpdiI6IndOaFZHQ1kwMUR6VzM5WTZYb05qWEE9PSIsInZhbHVlIjoia3VBSHcwOCsrajY3RlFaY1JKeURsbHhqT1I4XC9ieWg2Z05OMzUrODM5cFU9IiwibWFjIjoiZGEwMWE1ODU5NzhkNGFlYzY5NDI0MWJkMzljNGRjY2MyMjlhMzgxZDM1MTYzYWVjYWJlYmM2YWQ3YWQ1MTI5MiJ9",
+                    Other3 = "eyJpdiI6Ikw5V0ZTR3BaSVFCY3loSTNKdVBBaFE9PSIsInZhbHVlIjoiOTRNTVwvSlB0XC8zc0xzV1c2MllwSG41Z2VkeTJCS1wvTzE5c1NNTEhMSmYzZz0iLCJtYWMiOiI3ZDhjYWYyNWQ4ZmQxN2E1ZDY0OTQ5YmEzYzI5MjM0MGFlYzdlMjQ3NmQyMDc5MDE4ZmIxNWJlZmZjYjY0YzYxIn0=",
                 }
             };
         }

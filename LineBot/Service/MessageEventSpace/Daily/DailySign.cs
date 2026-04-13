@@ -29,8 +29,8 @@ namespace LineBot.Domain.MessageEventSpace
                 {
                     List<IDaily> gifts = new List<IDaily>
                     {
-                        new Bh3(),
-                        new OriginalGod(),
+                       // new Bh3(),
+                       // new OriginalGod(),
                         new BStreet(),
                         new Chickpt(),
                         new Feebee(),
